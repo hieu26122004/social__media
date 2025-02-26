@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ff-roboto: "Roboto", sans-serif;
+    --ff-montserrat: "Montserrat", sans-serif;
+    --background: 218.18, 25.98%, 24.9%;
+    --primary: 218.18, 25.58%, 16.86%;
+    --primary-600: 219, 26.32%, 14.9%;
+    --foreground: 232.17, 14.11%, 68.04%;
+    --foreground-header: 0, 0%, 98.04%;
+    --accent: 213.1, 74.36%, 61.76%;
+    --accent-foreground: 0, 0%, 100%;
+    --accent-600: 213.85, 48.95%, 46.86%;
+    --success: 152.54, 79.45%, 50.39%;
+    --destructive: 359.47, 93.42%, 52.35%;
+    --border: 218.92, 25.17%, 28.82%;
+    --input: 220, 25.23%, 20.98%;
+    --ring: 213.1, 74.36%, 61.76%;
+    --popover: 220, 24.59%, 11.96%;
+    --radius: 0.5rem;
+    --muted: 218, 25.86%, 22.75%;
+  }
+  .dark {
+    --background: 0, 0%, 95.69%;
+    --primary: 0, 0%, 100%;
+    --primary-600: 0, 0%, 100%;
+    --foreground: 229.29, 11.29%, 51.37%;
+    --foreground-header: 237.27, 16.18%, 26.67%;
+    --border: 0, 0%, 90.98%;
+    --input: 0, 0%, 96.86%;
+    --popover: 0 0% 100%;
+    --muted: 0, 0%, 94%;
+  }
+}
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-roboto;
+  }
+}
