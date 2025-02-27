@@ -22,6 +22,16 @@ export const USERS: User[] = [
     roles: ["user"],
     createdAt: "2025-02-21T14:35:57.000Z",
     updatedAt: "2025-02-21T14:35:57.000Z",
+    profile: {
+      uuid: "profile1",
+      userId: "user1",
+      bio: "Passionate software developer with a love for outdoor adventures.",
+      address: "123 Tech Street",
+      city: "San Francisco",
+      country: "USA",
+      createdAt: "2025-02-21T14:35:57.000Z",
+      updatedAt: "2025-02-21T14:35:57.000Z",
+    },
   },
   {
     uuid: "user2",
@@ -33,6 +43,16 @@ export const USERS: User[] = [
     roles: ["user"],
     createdAt: "2025-02-21T14:35:57.000Z",
     updatedAt: "2025-02-21T14:35:57.000Z",
+    profile: {
+      uuid: "profile2",
+      userId: "user2",
+      bio: "Graphic designer and coffee enthusiast from the Pacific Northwest.",
+      address: "456 Design Avenue",
+      city: "Seattle",
+      country: "USA",
+      createdAt: "2025-02-21T14:35:57.000Z",
+      updatedAt: "2025-02-21T14:35:57.000Z",
+    },
   },
   {
     uuid: "user3",
@@ -44,5 +64,36 @@ export const USERS: User[] = [
     roles: ["user"],
     createdAt: "2025-02-21T14:35:57.000Z",
     updatedAt: "2025-02-21T14:35:57.000Z",
+    profile: {
+      uuid: "profile3",
+      userId: "user3",
+      bio: "Data scientist exploring AI and machine learning innovations.",
+      address: "789 Data Lane",
+      city: "Boston",
+      country: "USA",
+      createdAt: "2025-02-21T14:35:57.000Z",
+      updatedAt: "2025-02-21T14:35:57.000Z",
+    },
+  },
+];
+
+export const USER_STATS = [
+  {
+    ...USERS[0],
+    followerCount: 150,
+    followingCount: 80,
+    postCount: 45,
+  },
+  {
+    ...USERS[1],
+    followerCount: 200,
+    followingCount: 120,
+    postCount: 60,
+  },
+  {
+    ...USERS[2],
+    followerCount: 180,
+    followingCount: 90,
+    postCount: 35,
   },
 ];

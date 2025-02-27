@@ -1,21 +1,47 @@
-import Tabs, { TabContent, TabsItem } from "@/components/tab/tab";
+import Tabs, { TabsItem, TabsList } from "@/components/tab/tab";
+import { Filter, Search } from "lucide-react";
+import UsersSuggestTab from "./components/uses-suggest-tab";
+import UsersFollowerTab from "./components/users-follower-tab";
+import UsersFollowingTab from "./components/users-following-tab";
+import { USER_STATS } from "@/mocks/user";
 
 const Users = () => {
   return (
-    <div className="w-full min-h-screen bg-background">
-      <div className="w-full bg-primary">
-        <div className="max-w-[1300px] mx-auto flex items-center justify-between">
-          <Tabs defaultTab="all">
-            <TabsItem value="all">All</TabsItem>
-            <TabsItem value="following">Following</TabsItem>
-            <TabsItem value="followers">Followers</TabsItem>
-            <TabContent value="all">Tab All</TabContent>
-            <TabContent value="following">Tab Following</TabContent>
-            <TabContent value="followers">Tab Followers</TabContent>
-          </Tabs>
+    <Tabs defaultTab="all" className="w-full min-h-screen bg-background">
+      <header className="w-full bg-primary">
+        <div className="max-w-[1300px] mx-auto flex items-center justify-between h-12 px-4">
+          <div className="flex items-center gap-4">
+            <Filter className="size-4 cursor-pointer" aria-hidden="true" />
+            <nav className="w-56">
+              <TabsList>
+                <TabsItem value="all">All</TabsItem>
+                <TabsItem value="following">Following</TabsItem>
+                <TabsItem value="followers">Followers</TabsItem>
+              </TabsList>
+            </nav>
+          </div>
+
+          <div className="flex items-center divide-x">
+            <span className="px-5">979 friends</span>
+            <button
+              type="button"
+              className="inline-flex items-center justify-center size-12 [&>svg]:size-4"
+              aria-label="Search users"
+            >
+              <Search aria-hidden="true" />
+            </button>
+          </div>
         </div>
-      </div>
-    </div>
+      </header>
+
+      <main className="w-full px-5">
+        <div className="max-w-[1200px] mx-auto mt-5">
+          <UsersSuggestTab user={USER_STATS} />
+          <UsersFollowingTab user={USER_STATS} />
+          <UsersFollowerTab user={USER_STATS} />
+        </div>
+      </main>
+    </Tabs>
   );
 };
 
