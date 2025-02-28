@@ -1,4 +1,6 @@
 import React from "react";
+import { cn } from "@/lib/utils";
+import { HEADER_HEIGHT } from "@/constants/app.constants";
 import { Outlet } from "react-router-dom";
 import Header from "./components/header";
 import ExplorerMenu from "./components/explorer-menu/explorer-menu";
@@ -9,7 +11,7 @@ const MainLayout = () => {
   return (
     <div className="w-screen min-h-screen">
       <Header onOpenExplorer={() => setOpenExplorer(true)} />
-      <main className="w-full min-h-[calc(100vh-56px)]">
+      <main className={cn("w-full", `min-h-[calc(100vh-${HEADER_HEIGHT})]`)}>
         <Outlet />
 
         <ExplorerMenu

@@ -1,4 +1,5 @@
 import { login } from "@/api/auth.api";
+import { PATHS } from "@/constants/path";
 import { useAppDispatch } from "@/store/hook";
 import { setUser } from "@/store/user-slice";
 import { useMutation } from "@tanstack/react-query";
@@ -15,7 +16,7 @@ const useLogin = () => {
       toast.success(response.data.message);
       dispatch(setUser(response.data.data!));
       localStorage.setItem("user", "valid");
-      navigate("/");
+      navigate(PATHS.HOME);
     },
     onError(error) {
       if (error instanceof AxiosError) {

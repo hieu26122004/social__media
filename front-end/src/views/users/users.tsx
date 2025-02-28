@@ -7,12 +7,12 @@ import { USER_STATS } from "@/mocks/user";
 
 const Users = () => {
   return (
-    <Tabs defaultTab="all" className="w-full min-h-screen bg-background">
+    <Tabs defaultTab="all" className="w-full min-h-screen bg-background pb-16">
       <header className="w-full bg-primary">
         <div className="max-w-[1300px] mx-auto flex items-center justify-between h-12 px-4">
-          <div className="flex items-center gap-4">
+          <div className="h-full flex items-center gap-4">
             <Filter className="size-4 cursor-pointer" aria-hidden="true" />
-            <nav className="w-56">
+            <nav className="w-56 h-full">
               <TabsList>
                 <TabsItem value="all">All</TabsItem>
                 <TabsItem value="following">Following</TabsItem>
@@ -21,7 +21,7 @@ const Users = () => {
             </nav>
           </div>
 
-          <div className="flex items-center divide-x">
+          <div className="hidden lg:flex items-center divide-x">
             <span className="px-5">979 friends</span>
             <button
               type="button"
@@ -36,7 +36,7 @@ const Users = () => {
 
       <main className="w-full px-5">
         <div className="max-w-[1200px] mx-auto mt-5">
-          <UsersSuggestTab user={USER_STATS} />
+          <UsersSuggestTab users={USER_STATS} />
           <UsersFollowingTab user={USER_STATS} />
           <UsersFollowerTab user={USER_STATS} />
         </div>

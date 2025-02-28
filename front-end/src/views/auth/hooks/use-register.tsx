@@ -1,4 +1,5 @@
 import { register } from "@/api/auth.api";
+import { PATHS } from "@/constants/path";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
@@ -10,7 +11,7 @@ const useRegister = () => {
     mutationFn: register,
     onSuccess(response) {
       toast.success(response.data.message);
-      navigate("/login");
+      navigate(PATHS.LOGIN);
     },
     onError(error) {
       if (error instanceof AxiosError) {

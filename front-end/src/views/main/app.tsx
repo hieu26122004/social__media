@@ -12,6 +12,8 @@ import Authentication from "@/components/authentication";
 import PostDetail from "../post-detail/post-detail";
 import DeletePost from "../delete-post/delete-post";
 import Users from "../users/users";
+import General from "../setting/general";
+import SettingLayout from "@/layouts/setting/setting-layout";
 
 const App: React.FC = () => {
   return (
@@ -33,6 +35,9 @@ const App: React.FC = () => {
           <Route element={<MainLayout />}>
             <Route path={PATHS.HOME} element={<Home />} />
             <Route path={PATHS.USERS} element={<Users />} />
+            <Route element={<SettingLayout />}>
+              <Route path={PATHS.SETTING} element={<General />} />
+            </Route>
           </Route>
           <Route path={PATHS.POST_DETAIL} element={<PostDetail />} />
           <Route path={PATHS.DELETE_POST} element={<DeletePost />} />

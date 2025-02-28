@@ -16,8 +16,8 @@ const ExplorerMenu: React.FC<Props> = ({ openExplorer, onCloseExplorer }) => {
       className={cn(
         "bg-primary fixed inset-0 z-10 w-full transition-all duration-500 ease-in-out",
         openExplorer
-          ? "translate-y-0 opacity-100" // Trạng thái hiển thị
-          : "translate-y-full opacity-0" // Trạng thái ẩn
+          ? "translate-y-0 opacity-100"
+          : "translate-y-full opacity-0"
       )}
       aria-label="Explore menu"
       aria-hidden={!openExplorer}
@@ -35,7 +35,7 @@ const ExplorerMenu: React.FC<Props> = ({ openExplorer, onCloseExplorer }) => {
         </header>
         <div className="grid grid-cols-3 md:grid-cols-5 gap-4 h-full overflow-y-auto">
           {EXPLORER_ITEMS.map((item) => (
-            <ExplorerItem key={item.id} {...item} />
+            <ExplorerItem key={item.id} {...item} onClose={onCloseExplorer} />
           ))}
         </div>
       </div>
@@ -48,11 +48,20 @@ type ExplorerItemProps = {
   path: string;
   label: string;
   image: string;
+  onClose: () => void;
 };
 
-const ExplorerItem: React.FC<ExplorerItemProps> = ({ path, label, image }) => {
+const ExplorerItem: React.FC<ExplorerItemProps> = ({
+  path,
+  label,
+  image,
+  onClose,
+}) => {
   return (
-    <div className="bg-transparent flex items-center justify-center rounded-md transition-colors hover:bg-muted md:p-5 p-1">
+    <div
+      className="bg-transparent flex items-center justify-center rounded-md transition-colors hover:bg-muted md:p-5 p-1"
+      onClick={onClose}
+    >
       <Link to={path} aria-label={`Navigate to ${label}`}>
         <img src={image} alt={label} className="size-[50px] object-contain" />
         <h4 className="mt-2 font-semibold text-sm capitalize text-center text-foreground">

@@ -1,4 +1,6 @@
 import React from "react";
+import { cn } from "@/lib/utils";
+import { HEADER_HEIGHT } from "@/constants/app.constants";
 import NavigationHeader from "./navigation-header";
 import LogoHeader from "./logo-header";
 import UserActionsHeader from "./user-actions-header";
@@ -16,7 +18,9 @@ const Header: React.FC<Props> = (props) => {
   const handleSearchChange = () => setIsSearching((prev) => !prev);
 
   return (
-    <header className="w-full bg-primary-600 px-3 py-2">
+    <header
+      className={cn("w-full bg-primary-600 px-3 py-2", `h-[${HEADER_HEIGHT}]`)}
+    >
       {!isSearching ? (
         <div className="mx-auto">
           <div className="flex items-center justify-between">
