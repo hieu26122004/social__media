@@ -10,5 +10,11 @@ export const PATHS = {
   USERS: `${ROOT_URLS.HOME}users`,
   NEWS: `${ROOT_URLS.HOME}news`,
   SETTING: `${ROOT_URLS.HOME}settings`,
+  SECURITY: `${ROOT_URLS.HOME}security`,
+  ACCOUNT: `${ROOT_URLS.HOME}account`,
+  PRIVACY: `${ROOT_URLS.HOME}privacy`,
+  PREFERENCES: `${ROOT_URLS.HOME}preferences`,
+  NOTIFICATIONS: `${ROOT_URLS.HOME}notifications`,
+  HELP: `${ROOT_URLS.HOME}help`,
   DELETE_POST: `${ROOT_URLS.HOME}delete/:postId`,
 };

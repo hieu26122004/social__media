@@ -8,11 +8,11 @@ const SettingLayout = () => {
   const { isOpen, closeSidebar, openSidebar, toggleSidebar } = useSidebar();
 
   return (
-    <div className={cn("flex")}>
-      {isOpen && <Sidebar />}
+    <div className={cn("flex bg-background")}>
+      <Sidebar onClose={closeSidebar} sidebarOpen={isOpen} />
       <div
         className={cn(
-          "flex-1 p-[30px]",
+          "bg-background flex-1 p-[30px] lg:ml-72 md:ml-64 ml-0",
           `min-h-[calc(100vh-${HEADER_HEIGHT})]`
         )}
       >

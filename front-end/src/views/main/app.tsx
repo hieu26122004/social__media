@@ -14,11 +14,17 @@ import DeletePost from "../delete-post/delete-post";
 import Users from "../users/users";
 import General from "../setting/general";
 import SettingLayout from "@/layouts/setting/setting-layout";
+import Security from "../setting/security";
+import Account from "../setting/account";
+import Help from "../setting/help";
+import Notifications from "../setting/notifications";
+import Preferences from "../setting/preferences";
+import Privacy from "../setting/privacy";
 
 const App: React.FC = () => {
   return (
     <div
-      className="app-container min-h-screen dark:bg-gray-900"
+      className="app-container min-h-screen"
       aria-label="Application container"
     >
       <Toaster
@@ -37,6 +43,12 @@ const App: React.FC = () => {
             <Route path={PATHS.USERS} element={<Users />} />
             <Route element={<SettingLayout />}>
               <Route path={PATHS.SETTING} element={<General />} />
+              <Route path={PATHS.ACCOUNT} element={<Account />} />
+              <Route path={PATHS.HELP} element={<Help />} />
+              <Route path={PATHS.NOTIFICATIONS} element={<Notifications />} />
+              <Route path={PATHS.PREFERENCES} element={<Preferences />} />
+              <Route path={PATHS.PRIVACY} element={<Privacy />} />
+              <Route path={PATHS.SECURITY} element={<Security />} />
             </Route>
           </Route>
           <Route path={PATHS.POST_DETAIL} element={<PostDetail />} />

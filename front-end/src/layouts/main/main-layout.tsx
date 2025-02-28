@@ -9,9 +9,14 @@ const MainLayout = () => {
   const [openExplorer, setOpenExplorer] = React.useState(false);
 
   return (
-    <div className="w-screen min-h-screen">
+    <div className="bg-background w-screen min-h-screen">
       <Header onOpenExplorer={() => setOpenExplorer(true)} />
-      <main className={cn("w-full", `min-h-[calc(100vh-${HEADER_HEIGHT})]`)}>
+      <main
+        className={cn(
+          "w-full",
+          `mt-[56px] min-h-[calc(100vh-${HEADER_HEIGHT})]`
+        )}
+      >
         <Outlet />
 
         <ExplorerMenu

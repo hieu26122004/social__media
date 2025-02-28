@@ -19,7 +19,10 @@ const Header: React.FC<Props> = (props) => {
 
   return (
     <header
-      className={cn("w-full bg-primary-600 px-3 py-2", `h-[${HEADER_HEIGHT}]`)}
+      className={cn(
+        "fixed z-10 top-0 inset-x-0 bg-primary-600 px-3 py-2 border-b",
+        `h-[${HEADER_HEIGHT}]`
+      )}
     >
       {!isSearching ? (
         <div className="mx-auto">

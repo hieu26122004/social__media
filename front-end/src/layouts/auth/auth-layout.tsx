@@ -5,7 +5,7 @@ import { HEADER_HEIGHT } from "@/constants/app.constants";
 
 const AuthLayout = () => {
   return (
-    <div className="w-screen min-h-screen">
+    <div className="bg-background w-screen min-h-screen">
       <Header />
       <main
         className={cn(

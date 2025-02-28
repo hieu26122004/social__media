@@ -20,6 +20,10 @@ export default {
           DEFAULT: "hsl(var(--primary))",
           600: "hsl(var(--primary-600))",
         },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",

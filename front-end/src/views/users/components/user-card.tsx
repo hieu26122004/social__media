@@ -20,8 +20,6 @@ type Props = {
 };
 
 const UserCard: React.FC<Props> = ({ user }) => {
-  console.log("user", user);
-
   return (
     <article className="relative isolate bg-primary p-5 rounded shadow">
       <figure className="relative isolate flex justify-center my-2">
