@@ -2,7 +2,6 @@ import {
   Bell,
   Heart,
   LayoutGrid,
-  Mail,
   Settings,
   CircleHelp,
   Power,
@@ -40,12 +39,12 @@ export const NAV_ITEMS = [
     icon: Bell,
     active: false,
   },
-  {
-    id: 3,
-    label: "Mail",
-    icon: Mail,
-    active: true,
-  },
+  // {
+  //   id: 3,
+  //   label: "Mail",
+  //   icon: Mail,
+  //   active: true,
+  // },
   {
     id: 4,
     label: "Explorer",

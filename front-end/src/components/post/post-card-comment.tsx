@@ -9,6 +9,7 @@ import { Textarea } from "../common/textarea";
 import { useAppSelector } from "@/store/hook";
 import useGetComments from "./hooks/use-get-comments";
 import { CreateCommentRequest } from "@/api/comment.api";
+import Loading from "../loading";
 
 type Props = {
   postId: number;
@@ -19,8 +20,6 @@ type Props = {
 
 const DEFAULT_CONTENT = "";
 
-const MIN_LOADING_TIME = 3000;
-
 const PostCardComment: React.FC<Props> = ({
   openComment,
   onCloseComment,
@@ -29,8 +28,6 @@ const PostCardComment: React.FC<Props> = ({
 }) => {
   const { user } = useAppSelector((state) => state.user);
   const { data: comments, isFetching } = useGetComments(postId, openComment);
-  const lastTimeLoaded = React.useRef(0);
-  const [loading, setLoading] = React.useState(false);
   const [content, setContent] = React.useState(DEFAULT_CONTENT);
 
   const handleCommentSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,30 +35,6 @@ const PostCardComment: React.FC<Props> = ({
     if (onComment) onComment({ content, postId });
     setContent(DEFAULT_CONTENT);
   };
-
-  React.useEffect(() => {
-    if (!openComment) {
-      setLoading(false);
-      lastTimeLoaded.current = 0;
-      return;
-    }
-    if (isFetching && !loading) {
-      setLoading(true);
-      lastTimeLoaded.current = Date.now();
-    }
-    if (loading) {
-      const timeDiff = Date.now() - lastTimeLoaded.current;
-      const remainingTime = MIN_LOADING_TIME - timeDiff;
-      if (!isFetching && timeDiff < MIN_LOADING_TIME) {
-        const timeout = setTimeout(() => {
-          setLoading(false);
-        }, remainingTime);
-        return () => clearTimeout(timeout);
-      } else if (!isFetching && timeDiff >= MIN_LOADING_TIME) {
-        setLoading(false);
-      }
-    }
-  }, [isFetching, openComment, loading]);
 
   return (
     <section
@@ -148,13 +121,8 @@ const PostCardComment: React.FC<Props> = ({
           </form>
         </footer>
       </div>
-      {loading && (
-        <div className="absolute z-10 inset-0 bg-primary rounded-lg overflow-hidden">
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="size-14 bg-transparent border-[5px] border-transparent border-t-accent rounded-full animate-spin" />
-          </div>
-        </div>
-      )}
+
+      <Loading loading={isFetching} />
     </section>
   );
 };

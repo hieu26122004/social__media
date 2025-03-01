@@ -54,7 +54,7 @@ const General: React.FC = () => {
       </header>
 
       <main className="flex flex-col items-start lg:flex-row gap-8">
-        <section className="flex-2">
+        <section className="flex-1">
           <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <Input
@@ -137,7 +137,7 @@ const General: React.FC = () => {
           </form>
         </section>
 
-        <aside className="flex-1 p-10 rounded-lg">
+        <aside className="p-10 rounded-lg">
           <img
             src={SETTING_IMG}
             alt="Illustration of general settings"

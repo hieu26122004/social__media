@@ -4,8 +4,8 @@ import useGetPost from "./hooks/use-get-post";
 import PostAside from "./components/post-aside";
 import PostAction from "./components/post-action";
 import PostImages from "./components/post-images";
-import PostLoading from "./components/post-loading";
 import useCreateComment from "../home/hooks/use-create-comment";
+import Loading from "@/components/loading";
 
 const PostDetail: React.FC = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const PostDetail: React.FC = () => {
           <PostAside onClose={handleClose} onShare={handleShare} />
         </div>
       )}
-      <PostLoading loading={postLoading} />
+      <Loading loading={postLoading} />
     </section>
   );
 };

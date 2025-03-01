@@ -25,7 +25,7 @@ const Account = () => {
         </h1>
       </header>
       <main className="flex flex-col items-start lg:flex-row gap-8">
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <section className="w-full lg:w-fit grid grid-cols-1 md:grid-cols-3 gap-6">
           {SUBLINK_ITEMS.map((item) => (
             <SettingSublink {...item} key={item.id} />
           ))}

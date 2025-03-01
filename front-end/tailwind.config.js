@@ -62,10 +62,26 @@ export default {
           "50%": { transform: "scaleX(0.9) scaleY(1.3)" },
           "100%": { transform: "scale(1)" },
         },
+        "check-mark": {
+          from: {
+            "stroke-dasharray": "0 200",
+            "stroke-dashoffset": "0",
+          },
+          to: {
+            "stroke-dasharray": "200 0",
+            "stroke-dashoffset": "0",
+          },
+        },
+        popup: {
+          from: { opacity: "0", transform: "scale(0)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
       },
       animation: {
         like: "balloon1 0.5s linear",
         unlike: "balloon2 0.6s linear",
+        "check-mark": "check-mark 2s ease-in-out forwards",
+        popup: "popup 0.3s ease-out 2s forwards",
       },
     },
   },

@@ -4,7 +4,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/common/avatar";
-import { getFullName, getShortName } from "@/helpers/name";
+import { getFlag, getFullName, getShortName } from "@/helpers/name";
 import { cn } from "@/lib/utils";
 import { User } from "@/types/user";
 import { UserPlus } from "lucide-react";
@@ -17,9 +17,17 @@ type UserStats = {
 
 type Props = {
   user: User & UserStats;
+  onToggleFollow?: (userId: string) => void;
+  loading?: boolean;
 };
 
-const UserCard: React.FC<Props> = ({ user }) => {
+const UserCard: React.FC<Props> = ({ user, onToggleFollow, loading }) => {
+  const handleFollow = () => {
+    if (onToggleFollow) {
+      onToggleFollow(user.uuid);
+    }
+  };
+
   return (
     <article className="relative isolate bg-primary p-5 rounded shadow">
       <figure className="relative isolate flex justify-center my-2">
@@ -33,7 +41,7 @@ const UserCard: React.FC<Props> = ({ user }) => {
 
         <div className="w-[90px] inline-flex justify-end absolute bottom-0">
           <img
-            src={user.profile?.country}
+            src={getFlag(user)}
             alt="country flag"
             className="size-7 border-2 rounded-full object-cover"
           />
@@ -58,13 +66,16 @@ const UserCard: React.FC<Props> = ({ user }) => {
           className="flex-1"
         />
       </div>
-      <button
-        type="button"
-        className="absolute top-5 right-5 size-11 inline-flex items-center justify-center cursor-pointer [&>svg]:size-5"
-        aria-label={`Follow ${getFullName(user)}`}
-      >
-        <UserPlus aria-hidden="true" />
-      </button>
+      {!loading && onToggleFollow && (
+        <button
+          type="button"
+          className="absolute top-5 right-5 size-11 inline-flex items-center justify-center cursor-pointer [&>svg]:size-5"
+          aria-label={`Follow ${getFullName(user)}`}
+          onClick={handleFollow}
+        >
+          <UserPlus aria-hidden="true" />
+        </button>
+      )}
     </article>
   );
 };

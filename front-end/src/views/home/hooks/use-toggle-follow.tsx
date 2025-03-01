@@ -1,16 +1,17 @@
-import { createPost } from "@/api/post.api";
+import { toggleFollow } from "@/api/user.api";
 import { queryClient } from "@/main";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
-const useCreatePost = () => {
+const useToggleFollow = () => {
   const mutation = useMutation({
-    mutationFn: createPost,
-
+    mutationFn: async (userId: string) => {
+      const { data } = await toggleFollow(userId);
+      return data;
+    },
     onSuccess(data) {
-      toast.success(data.data.message);
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      toast.success(data.message);
     },
     onError(error) {
       if (error instanceof AxiosError) {
@@ -19,8 +20,13 @@ const useCreatePost = () => {
         toast.error("Unknown error");
       }
     },
+    onSettled() {
+      queryClient.invalidateQueries({ queryKey: ["non-following"] });
+      queryClient.invalidateQueries({ queryKey: ["following"] });
+    },
   });
+
   return mutation;
 };
 
-export default useCreatePost;
+export default useToggleFollow;

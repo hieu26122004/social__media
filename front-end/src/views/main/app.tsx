@@ -20,6 +20,7 @@ import Help from "../setting/help";
 import Notifications from "../setting/notifications";
 import Preferences from "../setting/preferences";
 import Privacy from "../setting/privacy";
+import Test from "../test/test";
 
 const App: React.FC = () => {
   return (
@@ -54,6 +55,7 @@ const App: React.FC = () => {
           <Route path={PATHS.POST_DETAIL} element={<PostDetail />} />
           <Route path={PATHS.DELETE_POST} element={<DeletePost />} />
         </Route>
+        <Route path={PATHS.TEST} element={<Test />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

@@ -18,7 +18,10 @@ export type CreatePostRequest = {
   images?: File[];
 };
 
-export type GetAllPostResponse = Post[];
+export type GetAllPostResponse = {
+  posts: Post[];
+  nextCursor: string | null;
+};
 
 export type GetCommentsResponse = Comment[];
 
@@ -36,7 +39,13 @@ export const createPost = (data: CreatePostRequest) => {
   });
 };
 
-export const getAllPost = () => api.get<GetAllPostResponse>(URLS.GET_ALL);
+export const getAllPost = (cursor: string | null, limit: number = 10) =>
+  api.get<GetAllPostResponse>(URLS.GET_ALL, {
+    params: {
+      cursor,
+      limit,
+    },
+  });
 
 export const toggleLike = (postId: number) =>
   api.post<Post>(URLS.TOGGLE_LIKE.replace(":postId", postId.toString()));

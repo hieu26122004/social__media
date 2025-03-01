@@ -1,11 +1,29 @@
 import Tabs, { TabsItem, TabsList } from "@/components/tab/tab";
 import { Filter, Search } from "lucide-react";
-import UsersSuggestTab from "./components/uses-suggest-tab";
+import UsersSuggestTab from "./components/users-suggest-tab";
 import UsersFollowerTab from "./components/users-follower-tab";
 import UsersFollowingTab from "./components/users-following-tab";
-import { USER_STATS } from "@/mocks/user";
+import useGetNonFollowing from "../home/hooks/use-get-non-following";
+import useGetFollowing from "../home/hooks/use-get-following";
+import useGetFollowers from "../home/hooks/use-get-followers";
+import UsersSkeleton from "./components/users-skeleton";
+import useLoading from "@/hooks/use-loading";
 
 const Users = () => {
+  const { data: nonFollowing, isFetching: nonFollowingLoading } =
+    useGetNonFollowing();
+  const { data: following, isFetching: followingLoading } = useGetFollowing();
+  const { data: followers, isFetching: followersLoading } = useGetFollowers();
+  const loading =
+    nonFollowingLoading === true ||
+    followingLoading === true ||
+    followersLoading === true;
+  const { visibleLoading } = useLoading(loading);
+
+  if (visibleLoading) {
+    return <UsersSkeleton />;
+  }
+
   return (
     <Tabs defaultTab="all" className="w-full min-h-screen bg-background pb-16">
       <header className="w-full bg-primary">
@@ -36,9 +54,9 @@ const Users = () => {
 
       <main className="w-full px-5">
         <div className="max-w-[1200px] mx-auto mt-5">
-          <UsersSuggestTab users={USER_STATS} />
-          <UsersFollowingTab user={USER_STATS} />
-          <UsersFollowerTab user={USER_STATS} />
+          <UsersSuggestTab users={nonFollowing} />
+          <UsersFollowingTab users={following} />
+          <UsersFollowerTab users={followers} />
         </div>
       </main>
     </Tabs>

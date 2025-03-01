@@ -29,11 +29,10 @@ const Login = () => {
   return (
     <main className="max-w-[1152px] mx-auto">
       <section className="flex items-center justify-center min-h-screen">
-        {/* Image Section */}
+        {/* Image Section */}-
         <div className="flex-1 hidden md:block">
           <img src={LOGIN_IMG} alt="Login illustration" className="w-[620px]" />
         </div>
-
         {/* Form Section */}
         <div className="flex-1 flex flex-col items-center">
           <header className="text-center mb-6">

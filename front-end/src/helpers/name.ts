@@ -1,3 +1,4 @@
+import { COUNINTRIES } from "@/constants/country";
 import { User } from "@/types/user";
 
 export const getFullName = (user: User | null) => {
@@ -22,4 +23,19 @@ export const getShortName = (user: User | null) => {
   const lastInitial = user.lastName.charAt(0).toUpperCase();
 
   return `${firstInitial}${lastInitial}`;
+};
+
+export const getFlag = (user: User | null) => {
+  const defaultCountry = COUNINTRIES.find(
+    (country) => country.code === "VN"
+  )!.flag;
+
+  if (!user || !user.profile || !user.profile.country) {
+    return defaultCountry;
+  }
+
+  const country = COUNINTRIES.find(
+    (country) => country.code === user.profile.country
+  );
+  return country ? country.flag : defaultCountry;
 };

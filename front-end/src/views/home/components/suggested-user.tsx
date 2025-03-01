@@ -1,5 +1,5 @@
+import React from "react";
 import { Button } from "@/components/common/button";
-import useGetSuggestedUser from "../hooks/use-get-suggested-user";
 import { EllipsisVertical, UserPlus } from "lucide-react";
 import { User } from "@/types/user";
 import {
@@ -8,9 +8,24 @@ import {
   AvatarImage,
 } from "@/components/common/avatar";
 import { getFullName, getShortName } from "@/helpers/name";
+import useToggleFollow from "../hooks/use-toggle-follow";
 
-const SuggestedUser = () => {
-  const { data: users = [] } = useGetSuggestedUser();
+type Props = {
+  users: (User & {
+    followerCount: number;
+    followingCount: number;
+    postCount: number;
+  })[];
+  visibleCount: number;
+};
+
+const SuggestedUser: React.FC<Props> = (props) => {
+  const { visibleCount, users } = props;
+  const { mutate: follow, isPending } = useToggleFollow();
+
+  const usersVisible = users.slice(0, visibleCount);
+
+  if (users.length === 0) return null;
 
   return (
     <article
@@ -29,8 +44,13 @@ const SuggestedUser = () => {
           <EllipsisVertical aria-hidden="true" />
         </Button>
       </header>
-      {users.map((user) => (
-        <SuggestedItem key={user.uuid} user={user} />
+      {usersVisible.map((user) => (
+        <SuggestedItem
+          key={user.uuid}
+          user={user}
+          onFollow={follow}
+          loading={isPending}
+        />
       ))}
     </article>
   );
@@ -38,11 +58,17 @@ const SuggestedUser = () => {
 
 type SuggestedItemProps = {
   user: User;
+  onFollow: (userId: string) => void;
+  loading?: boolean;
 };
 
-const SuggestedItem: React.FC<SuggestedItemProps> = ({ user }) => {
+const SuggestedItem: React.FC<SuggestedItemProps> = ({
+  user,
+  onFollow,
+  loading,
+}) => {
   const handleFollow = () => {
-    console.log(`Follow user: ${user.uuid}`);
+    onFollow(user.uuid);
   };
 
   return (
@@ -61,14 +87,16 @@ const SuggestedItem: React.FC<SuggestedItemProps> = ({ user }) => {
           </span>
         </div>
       </div>
-      <Button
-        onClick={handleFollow}
-        variant="ghost-muted"
-        size="icon"
-        aria-label={`Follow ${getFullName(user)}`}
-      >
-        <UserPlus aria-hidden="true" />
-      </Button>
+      {!loading && (
+        <Button
+          onClick={handleFollow}
+          variant="ghost-muted"
+          size="icon"
+          aria-label={`Follow ${getFullName(user)}`}
+        >
+          <UserPlus aria-hidden="true" />
+        </Button>
+      )}
     </div>
   );
 };

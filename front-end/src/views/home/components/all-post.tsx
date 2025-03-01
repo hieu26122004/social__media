@@ -1,17 +1,25 @@
 import React from "react";
-import useGetAllPost from "../hooks/use-get-all-post";
 import PostCard from "@/components/post/post-card";
 import useToggleLike from "../hooks/use-toggle-like";
 import useCreateComment from "../hooks/use-create-comment";
 import { Button } from "@/components/common/button";
+import { Post } from "@/types/post";
 
-const AllPost = () => {
-  const { data } = useGetAllPost();
+type Props = {
+  posts: Post[];
+  loadMore: () => void;
+  hasMore: boolean;
+  isFetching: boolean;
+};
+
+const AllPost: React.FC<Props> = (props) => {
+  const { posts, hasMore, isFetching, loadMore } = props;
   const { mutate: toggleLike } = useToggleLike();
   const { mutate: createComment } = useCreateComment();
+
   return (
     <React.Fragment>
-      {data.map((post) => (
+      {posts.map((post) => (
         <PostCard
           key={post.id}
           post={post}
@@ -20,8 +28,13 @@ const AllPost = () => {
         />
       ))}
       <div className="flex items-center justify-center py-10">
-        <Button variant="default" size="lg">
-          Load more
+        <Button
+          variant="default"
+          size="lg"
+          onClick={() => loadMore()}
+          disabled={!hasMore || isFetching}
+        >
+          {isFetching ? "Loading..." : "Load more"}
         </Button>
       </div>
     </React.Fragment>

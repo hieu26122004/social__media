@@ -36,7 +36,7 @@ const LazyImage: React.FC<Props> = ({ src, alt = "", ...rest }) => {
     <div
       ref={placeholderRef}
       aria-hidden="true"
-      className="h-[180px] w-full animate-pulse bg-gray-200"
+      className="h-[180px] w-full animate-pulse bg-muted"
     />
   );
 };

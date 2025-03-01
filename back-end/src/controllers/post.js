@@ -10,8 +10,20 @@ const FOLDER = "social-media";
 
 const getAll = withAsync(async (req, res) => {
   const { uuid: userId } = req.user;
+  const { cursor, limit = 10 } = req.query;
+
+  const cursorDate = cursor ? new Date(cursor) : null;
+
+  const where = cursorDate
+    ? {
+        createdAt: {
+          [Sequelize.Op.lt]: cursorDate,
+        },
+      }
+    : {};
 
   let posts = await Post.findAll({
+    where,
     attributes: {
       include: [
         [
@@ -48,13 +60,20 @@ const getAll = withAsync(async (req, res) => {
       },
     ],
     order: [["createdAt", "DESC"]],
+    limit: parseInt(limit),
   });
 
   posts = posts.map((post) => serializePost(post));
 
-  return res
-    .status(httpStatus.OK)
-    .json(responseHandler.returnSuccess("Posts retrieved successfully", posts));
+  const nextCursor =
+    posts.length === parseInt(limit) ? posts[posts.length - 1].createdAt : null;
+
+  return res.status(httpStatus.OK).json(
+    responseHandler.returnSuccess("Posts retrieved successfully", {
+      posts,
+      nextCursor,
+    })
+  );
 });
 
 const getById = withAsync(async (req, res) => {
