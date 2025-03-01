@@ -17,5 +17,6 @@ export const PATHS = {
   NOTIFICATIONS: `${ROOT_URLS.HOME}notifications`,
   HELP: `${ROOT_URLS.HOME}help`,
   DELETE_POST: `${ROOT_URLS.HOME}delete/:postId`,
+  PROFILE: `${ROOT_URLS.HOME}profile/:userId`,
   TEST: `${ROOT_URLS.HOME}test`,
 };

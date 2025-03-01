@@ -1,7 +1,7 @@
-import UsersSekeleton from "../users/components/users-skeleton";
+import Profile from "../profile/profile";
 
 const Test = () => {
-  return <UsersSekeleton />;
+  return <Profile />;
 };
 
 export default Test;

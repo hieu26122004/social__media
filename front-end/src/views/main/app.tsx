@@ -21,13 +21,11 @@ import Notifications from "../setting/notifications";
 import Preferences from "../setting/preferences";
 import Privacy from "../setting/privacy";
 import Test from "../test/test";
+import Profile from "../profile/profile";
 
 const App: React.FC = () => {
   return (
-    <div
-      className="app-container min-h-screen"
-      aria-label="Application container"
-    >
+    <div className="app-container" aria-label="Application container">
       <Toaster
         position="top-center"
         toastOptions={{ duration: 3000 }}
@@ -42,6 +40,7 @@ const App: React.FC = () => {
           <Route element={<MainLayout />}>
             <Route path={PATHS.HOME} element={<Home />} />
             <Route path={PATHS.USERS} element={<Users />} />
+            <Route path={PATHS.PROFILE} element={<Profile />} />
             <Route element={<SettingLayout />}>
               <Route path={PATHS.SETTING} element={<General />} />
               <Route path={PATHS.ACCOUNT} element={<Account />} />

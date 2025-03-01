@@ -1,7 +1,7 @@
 import { Post } from "@/types/post";
 import { USERS } from "./user";
 
-const IMAGE_URLS = [
+export const IMAGE_URLS = [
   "https://friendkit.cssninja.io/assets/img/demo/unsplash/1.jpg",
   "https://friendkit.cssninja.io/assets/img/demo/unsplash/2.jpg",
   "https://friendkit.cssninja.io/assets/img/demo/unsplash/3.jpg",

@@ -1,6 +1,5 @@
 import React from "react";
 import toast from "react-hot-toast";
-import Loading from "./loading";
 import { loadUser } from "@/api/user.api";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
 import { setUser } from "@/store/user-slice";
@@ -43,7 +42,7 @@ const Authentication: React.FC = () => {
   }, [checkAuth]);
 
   if (isLoading) {
-    return <Loading />;
+    return <div>loading...</div>;
   }
 
   if (error) {
