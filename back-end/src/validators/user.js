@@ -51,4 +51,33 @@ const loginValidator = (req, res, next) => {
   next();
 };
 
-module.exports = { createValidator, loginValidator };
+const updateUserSchema = Joi.object().keys({
+  firstName: Joi.string().trim().min(1).optional(),
+  lastName: Joi.string().trim().min(1).optional(),
+  address: Joi.string().trim().min(1).optional(),
+  city: Joi.string().trim().min(1).optional(),
+  country: Joi.string().trim().min(1).optional(),
+  bio: Joi.string().trim().min(1).optional(),
+});
+
+const updateUserValidator = (req, res, next) => {
+  const { value, error } = updateUserSchema.validate(req.body, {
+    allowUnknown: true,
+    errors: { wrap: { label: "" } },
+  });
+
+  if (error) {
+    const errorMessage = error.details
+      .map((detail) => detail.message)
+      .join(", ");
+    return res.status(httpStatus.BAD_REQUEST).json({
+      message: errorMessage,
+      success: false,
+    });
+  }
+
+  req.body = value;
+  next();
+};
+
+module.exports = { createValidator, loginValidator, updateUserValidator };

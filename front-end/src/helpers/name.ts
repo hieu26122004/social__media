@@ -1,4 +1,4 @@
-import { COUNINTRIES } from "@/constants/country";
+import { COUNTRIES } from "@/constants/country";
 import { User } from "@/types/user";
 
 export const getFullName = (user: User | null) => {
@@ -26,7 +26,7 @@ export const getShortName = (user: User | null) => {
 };
 
 export const getFlag = (user: User | null) => {
-  const defaultCountry = COUNINTRIES.find(
+  const defaultCountry = COUNTRIES.find(
     (country) => country.code === "VN"
   )!.flag;
 
@@ -34,7 +34,7 @@ export const getFlag = (user: User | null) => {
     return defaultCountry;
   }
 
-  const country = COUNINTRIES.find(
+  const country = COUNTRIES.find(
     (country) => country.code === user.profile.country
   );
   return country ? country.flag : defaultCountry;

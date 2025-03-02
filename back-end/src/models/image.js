@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+
+      Image.belongsTo(models.User, {
+        as: "user",
+        foreignKey: "userId",
+        targetKey: "uuid",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
 
@@ -20,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         primaryKey: true,
       },
+      userId: DataTypes.UUID,
       postId: DataTypes.INTEGER,
       url: DataTypes.TEXT,
       publicId: DataTypes.STRING,

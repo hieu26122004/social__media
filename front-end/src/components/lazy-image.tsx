@@ -1,8 +1,9 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
 type Props = React.ImgHTMLAttributes<HTMLImageElement>;
 
-const LazyImage: React.FC<Props> = ({ src, alt = "", ...rest }) => {
+const LazyImage: React.FC<Props> = ({ src, alt = "", className, ...rest }) => {
   const placeholderRef = React.useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = React.useState(false);
 
@@ -31,12 +32,18 @@ const LazyImage: React.FC<Props> = ({ src, alt = "", ...rest }) => {
   }, []);
 
   return isVisible ? (
-    <img src={src} alt={alt} loading="lazy" {...rest} />
+    <img
+      src={src}
+      alt={alt}
+      className={cn(className)}
+      loading="lazy"
+      {...rest}
+    />
   ) : (
     <div
       ref={placeholderRef}
       aria-hidden="true"
-      className="h-[180px] w-full animate-pulse bg-muted"
+      className={cn(className, "animate-pulse bg-muted")}
     />
   );
 };

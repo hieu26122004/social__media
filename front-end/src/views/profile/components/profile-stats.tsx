@@ -5,7 +5,9 @@ import { User } from "@/types/user";
 import { Clock } from "lucide-react";
 
 type Props = {
-  user: User;
+  user: User & {
+    followerCount: number;
+  };
 };
 
 const ProfileStats: React.FC<Props> = (props) => {
@@ -15,9 +17,11 @@ const ProfileStats: React.FC<Props> = (props) => {
     <div className="w-full flex items-center justify-between pt-2 mt-12 md:mt-0">
       <div className="hidden md:block basis-1/4">
         <h3 className="font-montserrat text-foreground-header text-2xl font-semibold leading-tight">
-          3.4K
+          {user.followerCount}
         </h3>
-        <p className="text-xs text-foreground font-medium uppercase">Friends</p>
+        <p className="text-xs text-foreground font-medium uppercase">
+          Followers
+        </p>
       </div>
       <div className="flex-1 text-center">
         <h1 className="text-foreground-header text-[1.4rem] font-semibold leading-tight">
@@ -26,7 +30,7 @@ const ProfileStats: React.FC<Props> = (props) => {
         <p className="text-sm text-foreground">Media Influencer</p>
       </div>
       <div className="hidden md:flex justify-end basis-1/4">
-        <Button variant="secondary" size="sm">
+        <Button variant="default" size="sm">
           <Clock className="mr-2" />
           History
         </Button>

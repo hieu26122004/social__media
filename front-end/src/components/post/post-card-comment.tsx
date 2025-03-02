@@ -10,6 +10,7 @@ import { useAppSelector } from "@/store/hook";
 import useGetComments from "./hooks/use-get-comments";
 import { CreateCommentRequest } from "@/api/comment.api";
 import Loading from "../loading";
+import { PATHS } from "@/constants/path";
 
 type Props = {
   postId: number;
@@ -70,7 +71,7 @@ const PostCardComment: React.FC<Props> = ({
               </Avatar>
               <div className="flex-1">
                 <Link
-                  to={`/profile/${comment.userId}`}
+                  to={PATHS.PROFILE.replace(":userId", comment.author.uuid)}
                   className="text-foreground text-sm font-medium hover:text-accent transition-colors duration-300"
                 >
                   {getFullName(comment.author)}

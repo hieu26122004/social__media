@@ -3,6 +3,10 @@ import { User } from "./user";
 export type Image = {
   uuid: string;
   url: string;
+  postId: string;
+  post?: Post;
+  userId: string;
+  user?: User;
   createdAt: string;
   updatedAt: string;
 };

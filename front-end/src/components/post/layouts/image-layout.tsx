@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { Link, LinkProps } from "react-router-dom";
+import { PATHS } from "@/constants/path";
 
 type ImageComponent = React.ReactElement<{ src: string; alt?: string }>;
 
@@ -25,7 +26,7 @@ const ImageLink: React.FC<ImageLinkProps> = ({
 }) => {
   return (
     <Link
-      to={`/post/${postId}`}
+      to={PATHS.POST_DETAIL.replace(":postId", postId.toString())}
       className={cn(
         "block [&>img]:w-full [&>img]:h-full [&>img]:rounded-lg [&>img]:object-cover",
         className

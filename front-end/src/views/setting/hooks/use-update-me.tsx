@@ -1,15 +1,17 @@
-import { createPost } from "@/api/post.api";
-import { queryClient } from "@/main";
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
+import { updateMe } from "@/api/user.api";
 import toast from "react-hot-toast";
+import { useAppDispatch } from "@/store/hook";
+import { setUser } from "@/store/user-slice";
+import { AxiosError } from "axios";
 
-const useCreatePost = () => {
+const useUpdateMe = () => {
+  const dispatch = useAppDispatch();
   const mutation = useMutation({
-    mutationFn: createPost,
+    mutationFn: updateMe,
     onSuccess(data) {
       toast.success(data.data.message);
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      dispatch(setUser(data.data.data!));
     },
     onError(error) {
       if (error instanceof AxiosError) {
@@ -22,4 +24,4 @@ const useCreatePost = () => {
   return mutation;
 };
 
-export default useCreatePost;
+export default useUpdateMe;

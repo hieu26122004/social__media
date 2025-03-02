@@ -205,6 +205,7 @@ const create = async (req, res) => {
 
       images = uploadedImages.map((image) => ({
         uuid: uuidv4(),
+        userId,
         postId: post.id,
         url: image.secure_url,
         publicId: image.public_id,

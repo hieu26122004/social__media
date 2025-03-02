@@ -1,18 +1,22 @@
-import { login } from "@/api/auth.api";
+import { logout } from "@/api/auth.api";
 import { PATHS } from "@/constants/path";
+import { useAppDispatch } from "@/store/hook";
+import { clearUser } from "@/store/user-slice";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-const useLogin = () => {
+const useLogout = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const mutation = useMutation({
-    mutationFn: login,
-    onSuccess(response) {
-      toast.success(response.data.message);
-      localStorage.setItem("user", "valid");
-      navigate(PATHS.HOME);
+    mutationFn: logout,
+    onSuccess(data) {
+      toast.success(data.data.message);
+      dispatch(clearUser());
+      localStorage.removeItem("user");
+      navigate(PATHS.LOGIN);
     },
     onError(error) {
       if (error instanceof AxiosError) {
@@ -25,4 +29,4 @@ const useLogin = () => {
   return mutation;
 };
 
-export default useLogin;
+export default useLogout;

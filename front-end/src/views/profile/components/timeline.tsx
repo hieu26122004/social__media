@@ -8,7 +8,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/common/avatar";
-import { getFullName } from "@/helpers/name";
+import { getShortName } from "@/helpers/name";
 
 type Props = {
   posts?: Post[];
@@ -31,7 +31,7 @@ const Timeline: React.FC<Props> = (props) => {
           {posts.map((item) => (
             <div key={item.id} className="w-full pl-20 relative space-y-4">
               <Avatar className="absolute size-11 left-[10px] top-3">
-                <AvatarFallback>{getFullName(item.author)}</AvatarFallback>
+                <AvatarFallback>{getShortName(item.author)}</AvatarFallback>
                 <AvatarImage src={item.author.profilePicture} />
               </Avatar>
               <PostCard post={item} />

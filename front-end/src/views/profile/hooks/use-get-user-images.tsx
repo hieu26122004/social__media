@@ -1,14 +1,14 @@
 import React from "react";
-import { getFollowing } from "@/api/user.api";
 import { useQuery } from "@tanstack/react-query";
+import { getUserImage } from "@/api/user.api";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
-const useGetFollowing = (userId?: string) => {
-  const { data, isError, error, ...rest } = useQuery({
-    queryKey: userId ? ["following", userId] : ["following"],
+const useGetUserImages = (userId: string) => {
+  const { isError, error, data, ...rest } = useQuery({
+    queryKey: ["user-images", userId],
     queryFn: async () => {
-      const { data: response } = await getFollowing(userId);
+      const { data: response } = await getUserImage(userId);
       return response.data;
     },
   });
@@ -22,9 +22,11 @@ const useGetFollowing = (userId?: string) => {
     }
   }, [isError, error]);
   return {
-    data: data || [],
+    isError,
+    error,
+    data,
     ...rest,
   };
 };
 
-export default useGetFollowing;
+export default useGetUserImages;

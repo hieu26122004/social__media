@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../common/dropdown-menu";
+import { PATHS } from "@/constants/path";
 
 type Props = {
   postId: number;
@@ -34,7 +35,7 @@ const PostCardHeader: React.FC<Props> = (props) => {
         </Avatar>
         <div>
           <Link
-            to={`/profile/${author.uuid}`}
+            to={PATHS.PROFILE.replace(":userId", author.uuid)}
             className="text-foreground-header text-sm font-medium transition-colors duration-300 hover:text-accent"
             aria-label={`View ${getFullName(author)}'s profile`}
           >

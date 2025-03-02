@@ -25,3 +25,5 @@ export const login = (data: LoginRequest) =>
 
 export const register = (data: RegisterRequest) =>
   api.post<LoginResponse>(URLS.REGISTER, data);
+
+export const logout = () => api.post(URLS.LOGOUT);

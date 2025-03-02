@@ -1,9 +1,12 @@
-import { Button } from "@/components/common/button";
-import { EllipsisVertical } from "lucide-react";
 import React from "react";
+import { Button } from "@/components/common/button";
+import { PATHS } from "@/constants/path";
+import { Image } from "@/types/post";
+import { EllipsisVertical } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type Props = {
-  images?: string[];
+  images?: Image[];
 };
 
 const Photos: React.FC<Props> = (props) => {
@@ -18,14 +21,19 @@ const Photos: React.FC<Props> = (props) => {
         </Button>
       </div>
       <div className="grid grid-cols-4 gap-y-3 gap-x-2">
-        {images.map((item, index) => (
-          <div key={index} className="aspect-square">
-            <img
-              src={item}
-              alt="photo"
-              className="h-full object-cover rounded-lg"
-            />
-          </div>
+        {images.map((item) => (
+          <Link
+            key={item.uuid}
+            to={PATHS.POST_DETAIL.replace(":postId", item.postId.toString())}
+          >
+            <div className="aspect-square">
+              <img
+                src={item.url}
+                alt="photo"
+                className="h-full object-cover rounded-lg"
+              />
+            </div>
+          </Link>
         ))}
       </div>
     </div>

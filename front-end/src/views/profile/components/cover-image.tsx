@@ -12,29 +12,59 @@ import { User } from "@/types/user";
 
 type Props = {
   user: User;
+  profilePicture?: File;
+  coverPicture?: File;
+  onProfilePictureChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onCoverPictureChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const CoverImage: React.FC<Props> = (props) => {
-  const { user } = props;
+  const {
+    user,
+    onCoverPictureChange,
+    onProfilePictureChange,
+    coverPicture,
+    profilePicture,
+  } = props;
+
+  const coverPictureUrl = coverPicture
+    ? URL.createObjectURL(coverPicture)
+    : user.coverPicture || BG_COVER;
+  const profilePictureUrl = profilePicture
+    ? URL.createObjectURL(profilePicture)
+    : user.profilePicture || "";
+
+  React.useEffect(() => {
+    return () => {
+      if (coverPicture) URL.revokeObjectURL(coverPictureUrl);
+      if (profilePicture) URL.revokeObjectURL(profilePictureUrl);
+    };
+  }, [coverPicture, profilePicture, coverPictureUrl, profilePictureUrl]);
 
   return (
     <div className="relative isolate group">
       <img
-        src={user.coverPicture || BG_COVER}
+        src={coverPictureUrl}
         className="min-h-44 max-h-80 w-full rounded object-cover"
         alt="User cover picture"
-        loading="lazy"
+        loading="eager"
       />
       <label
         htmlFor="cover-picture"
-        className="inline-flex items-center gap-3 p-2 absolute top-3 left-3 transition-all duration-300 border group-hover:border-foreground-header border-transparent rounded cursor-pointer"
+        className="inline-flex items-center gap-3 p-2 absolute top-3 left-3 transition-all duration-300 border group-hover:border-white border-transparent rounded cursor-pointer"
         aria-label="Edit cover picture"
       >
-        <Camera className="size-6 stroke-foreground-header fill-transparent transition-transform duration-300 group-hover:scale-90" />
-        <span className="text-sm text-foreground-header font-normal opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <Camera className="size-6 stroke-white fill-transparent transition-transform duration-300 group-hover:scale-90" />
+        <span className="text-sm text-white font-normal opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           Edit cover image
         </span>
-        <input type="file" className="hidden" id="cover-picture" />
+        <input
+          type="file"
+          className="hidden"
+          id="cover-picture"
+          onChange={onCoverPictureChange}
+          accept="image/jpeg,image/png,image/jpg,image/gif,image/webp"
+        />
       </label>
       <Button
         variant="ghost-muted"
@@ -48,14 +78,20 @@ const CoverImage: React.FC<Props> = (props) => {
         <div className="relative isolate">
           <Avatar className="size-28">
             <AvatarFallback>{getShortName(user)}</AvatarFallback>
-            <AvatarImage src={user.profilePicture} alt={getFullName(user)} />
+            <AvatarImage src={profilePictureUrl} alt={getFullName(user)} />
           </Avatar>
           <label
             htmlFor="profile-picture"
             className="size-[34px] bg-accent-600 rounded-full absolute bottom-0 right-0 z-10 flex items-center justify-center cursor-pointer"
             aria-label="Edit profile picture"
           >
-            <input type="file" className="hidden" id="profile-picture" />
+            <input
+              type="file"
+              className="hidden"
+              id="profile-picture"
+              onChange={onProfilePictureChange}
+              accept="image/jpeg,image/png,image/jpg,image/gif,image/webp"
+            />
             <Plus className="size-5 stroke-white" aria-hidden="true" />
           </label>
         </div>

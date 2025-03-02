@@ -58,15 +58,18 @@ const ExplorerItem: React.FC<ExplorerItemProps> = ({
   onClose,
 }) => {
   return (
-    <div
-      className="bg-transparent flex items-center justify-center rounded-md transition-colors hover:bg-muted md:p-5 p-1"
-      onClick={onClose}
-    >
-      <Link to={path} aria-label={`Navigate to ${label}`}>
-        <img src={image} alt={label} className="size-[50px] object-contain" />
-        <h4 className="mt-2 font-semibold text-sm capitalize text-center text-foreground">
-          {label}
-        </h4>
+    <div className="" onClick={onClose}>
+      <Link
+        className="bg-transparent flex items-center justify-center rounded-md transition-colors hover:bg-muted "
+        to={path}
+        aria-label={`Navigate to ${label}`}
+      >
+        <div className="md:p-5 p-1">
+          <img src={image} alt={label} className="size-[50px] object-contain" />
+          <h4 className="mt-2 font-semibold text-sm capitalize text-center text-foreground">
+            {label}
+          </h4>
+        </div>
       </Link>
     </div>
   );

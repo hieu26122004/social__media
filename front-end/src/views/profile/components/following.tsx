@@ -4,7 +4,8 @@ import {
   AvatarImage,
 } from "@/components/common/avatar";
 import { Button } from "@/components/common/button";
-import { getFullName } from "@/helpers/name";
+import { PATHS } from "@/constants/path";
+import { getFullName, getShortName } from "@/helpers/name";
 import { cn } from "@/lib/utils";
 import { User } from "@/types/user";
 import { EllipsisVertical, Star } from "lucide-react";
@@ -49,12 +50,12 @@ const FollowingItem: React.FC<FollowingItemProps> = (props) => {
     <div className="flex items-center justify-between py-[10px] px-4">
       <div className="flex-shrink-0 flex items-center gap-3">
         <Avatar className="size-11">
-          <AvatarFallback>{getFullName(user)}</AvatarFallback>
+          <AvatarFallback>{getShortName(user)}</AvatarFallback>
           <AvatarImage src={user.profilePicture} alt={user.lastName} />
         </Avatar>
         <p>
           <Link
-            to={`/profile/${user.uuid}`}
+            to={PATHS.PROFILE.replace(":userId", user.uuid)}
             className="font-medium text-sm text-foreground transition-colors hover:text-accent"
           >
             {getFullName(user)}

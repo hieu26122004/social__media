@@ -10,7 +10,7 @@ import NHAT_BAN from "@assets/nhat_ban.svg";
 import UC from "@assets/uc.svg";
 import VIET_NAM from "@assets/viet_nam.svg";
 
-export const COUNINTRIES = [
+export const COUNTRIES = [
   { id: 1, name: "United States", code: "US", flag: MY_DE },
   { id: 2, name: "China", code: "CN", flag: TAU_CONG },
   { id: 3, name: "Russia", code: "RU", flag: NGA_NGO },
@@ -23,3 +23,5 @@ export const COUNINTRIES = [
   { id: 10, name: "Vietnam", code: "VN", flag: VIET_NAM },
   { id: 11, name: "Australia", code: "AU", flag: UC },
 ];
+
+export type Country = (typeof COUNTRIES)[0];

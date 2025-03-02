@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { Globe, Mail, MapPin, Menu, User } from "lucide-react";
+import { Mail, MapPin, Menu, User } from "lucide-react";
 import { Link, useOutletContext } from "react-router-dom";
 import Input from "./components/input";
 import { Button } from "@/components/common/button";
 import SETTING_IMG from "@assets/setting-illustration.svg";
+import { useAppSelector } from "@/store/hook";
+import SelectCountry from "./components/select-country";
+import useUpdateMe from "./hooks/use-update-me";
 
 export type SidebarControls = {
   closeSidebar: () => void;
@@ -11,18 +14,31 @@ export type SidebarControls = {
   toggleSidebar: () => void;
 };
 
+const DEFAULT_FORM_DATA = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  backupEmail: "",
+  address: "",
+  city: "",
+  country: "",
+  bio: "",
+};
+
 const General: React.FC = () => {
   const { openSidebar } = useOutletContext<SidebarControls>();
-
+  const { user } = useAppSelector((state) => state.user);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
+    firstName: user!.firstName,
+    lastName: user!.lastName,
+    email: user!.email,
     backupEmail: "",
-    address: "",
-    city: "",
-    country: "",
+    address: user?.profile?.address || "",
+    city: user?.profile?.city || "",
+    country: user?.profile?.country || "",
+    bio: user?.profile?.bio || "",
   });
+  const { mutate: updateMe, isPending } = useUpdateMe();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -34,7 +50,8 @@ const General: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    updateMe(formData);
+    setFormData(DEFAULT_FORM_DATA);
   };
 
   return (
@@ -100,11 +117,19 @@ const General: React.FC = () => {
               value={formData.address}
               onChange={handleChange}
             />
+            <Input
+              type="text"
+              label="Bio"
+              name="bio"
+              placeholder="Tell us about yourself"
+              value={formData.bio}
+              onChange={handleChange}
+            />
             <p className="text-sm text-foreground max-w-[84ch] mt-2">
               Be sure to fill out your location settings. This will help us
               suggest relevant friends and places you might like.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4 relative isolate">
               <Input
                 type="text"
                 label="City"
@@ -113,26 +138,24 @@ const General: React.FC = () => {
                 value={formData.city}
                 onChange={handleChange}
               />
-              <Input
-                type="text"
-                label="Country"
-                name="country"
-                Icon={Globe}
+              <SelectCountry
                 value={formData.country}
-                onChange={handleChange}
+                onCountryChange={(country: string) =>
+                  setFormData((prev) => ({ ...prev, country }))
+                }
               />
-            </div>
-            <div className="flex items-center gap-6 mt-6">
-              <Button type="submit" className="min-w-36">
-                Save Changes
-              </Button>
-              <Button
-                type="button"
-                variant="secondary"
-                className="min-w-36 border"
-              >
-                Advanced
-              </Button>
+              <div className="flex items-center gap-6 mt-6">
+                <Button type="submit" className="min-w-36" disabled={isPending}>
+                  {isPending ? "Saving..." : "Save Changes"}
+                </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="min-w-36 border"
+                >
+                  Advanced
+                </Button>
+              </div>
             </div>
           </form>
         </section>

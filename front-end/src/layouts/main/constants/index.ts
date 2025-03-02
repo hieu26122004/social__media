@@ -28,17 +28,18 @@ import { PATHS } from "@/constants/path";
 
 export const NAV_ITEMS = [
   {
-    id: 1,
-    label: "Heart",
-    icon: Heart,
-    active: false,
-  },
-  {
     id: 2,
     label: "Bell",
     icon: Bell,
     active: false,
   },
+  {
+    id: 1,
+    label: "Heart",
+    icon: Heart,
+    active: false,
+  },
+
   // {
   //   id: 3,
   //   label: "Mail",

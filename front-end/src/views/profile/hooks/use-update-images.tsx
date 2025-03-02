@@ -1,15 +1,17 @@
-import { createPost } from "@/api/post.api";
-import { queryClient } from "@/main";
+import { updateImages } from "@/api/user.api";
+import { useAppDispatch } from "@/store/hook";
+import { setUser } from "@/store/user-slice";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 
-const useCreatePost = () => {
+const useUpdateImages = () => {
+  const dispatch = useAppDispatch();
   const mutation = useMutation({
-    mutationFn: createPost,
+    mutationFn: updateImages,
     onSuccess(data) {
       toast.success(data.data.message);
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      dispatch(setUser(data.data.data!));
     },
     onError(error) {
       if (error instanceof AxiosError) {
@@ -19,7 +21,8 @@ const useCreatePost = () => {
       }
     },
   });
+
   return mutation;
 };
 
-export default useCreatePost;
+export default useUpdateImages;

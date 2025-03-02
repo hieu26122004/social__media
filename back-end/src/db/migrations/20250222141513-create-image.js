@@ -8,6 +8,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID,
       },
+      user_id: {
+        allowNull: false,
+        type: Sequelize.UUID,
+        references: {
+          model: "Users",
+          key: "uuid",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
       post_id: {
         type: Sequelize.INTEGER,
         references: {

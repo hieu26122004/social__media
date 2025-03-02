@@ -60,3 +60,5 @@ export const getPost = (postId: number) =>
 
 export const deletePost = (postId: number) =>
   api.delete(URLS.DELETE.replace(":postId", postId.toString()));
+
+
